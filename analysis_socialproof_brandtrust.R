@@ -125,3 +125,4 @@ legend("topleft",
   legend = c("High Trust", "Low Trust"),
   col = c("blue", "red"), pch = 16
 )
+

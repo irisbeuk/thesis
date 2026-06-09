@@ -452,7 +452,7 @@ fit_model8 <- sem(
 summary(fit_model8, standardized = FALSE, ci = TRUE)
 
 #4.4.3
-# Additional analyses with covariates
+# Additional analyses with covariates age gender familiairty
 model8_cov <- '
   credibility_mean ~ a1*cue_dummy + a2*brandtrust_mean + a3*cue_trust_int
   purchaseintent_mean ~ b*credibility_mean + cprime*cue_dummy + d*brandtrust_mean +
@@ -469,3 +469,17 @@ fit_model8_cov <- sem(
 summary(fit_model8_cov, standardized = FALSE, ci = TRUE)
 
 
+#4.1 simple effect
+# Simple effects: Cue Type within each Trust Level
+high_trust <- subset(data, trust_level == "High")
+low_trust  <- subset(data, trust_level == "Low")
+
+t.test(purchaseintent_mean ~ cue_type, data = high_trust)   # Scarcity vs Social Proof within High Trust
+t.test(purchaseintent_mean ~ cue_type, data = low_trust)    # Scarcity vs Social Proof within Low Trust
+
+# Simple effects: Trust Level within each Cue Type
+scarcity <- subset(data, cue_type == "scarcity")
+social   <- subset(data, cue_type == "social_proof")
+
+t.test(purchaseintent_mean ~ trust_level, data = scarcity)  # High vs Low Trust within Scarcity
+t.test(purchaseintent_mean ~ trust_level, data = social)    # High vs Low Trust within Social Proof
